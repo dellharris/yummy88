@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playlist Strategy — IDU House Creators</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:    #080808;
+      --white:    #F0EDE8;
+      --gold:     #C8A84B;
+      --gold-dim: rgba(200,168,75,0.10);
+      --mid:      #141414;
+      --border:   rgba(255,255,255,0.07);
+      --muted:    #5A5A5A;
+      --green:    #4ade80;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 22px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.98) 0%, transparent 100%);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-sub {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 52px 72px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero-bg-line {
+      position: absolute;
+      top: 0; bottom: 0; right: 200px;
+      width: 1px;
+      background: var(--border);
+    }
+    .hero-bg-line2 {
+      position: absolute;
+      top: 0; bottom: 0; right: 400px;
+      width: 1px;
+      background: var(--border);
+    }
+    .hero-ticker {
+      position: absolute;
+      top: 130px; left: 0; right: 0;
+      display: flex;
+      gap: 80px;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0.03;
+      pointer-events: none;
+    }
+    .hero-ticker span {
+      font-family: 'Syne', sans-serif;
+      font-size: 200px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(52px, 9vw, 120px);
+      font-weight: 800;
+      line-height: 0.88;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      margin-bottom: 52px;
+    }
+    .hero-title .gold { color: var(--gold); }
+    .hero-meta {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+    }
+    .hero-meta-item label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .hero-meta-item span {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .hero-scroll {
+      position: absolute;
+      right: 52px; bottom: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-scroll span {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ── STAT BAR ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      padding: 44px 40px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(30px, 3.5vw, 52px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 96px 52px;
+      border-bottom: 1px solid var(--border);
+    }
+    section.tight { padding: 72px 52px; }
+    .sec-tag {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sec-tag::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--gold);
+    }
+    h2.sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(30px, 4.5vw, 60px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+
+    /* ── LAYOUT ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+    /* ── BODY COPY ── */
+    .intro-lead {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(20px, 2.5vw, 34px);
+      font-weight: 600;
+      line-height: 1.25;
+      max-width: 720px;
+      margin-bottom: 32px;
+    }
+    .intro-lead .gold { color: var(--gold); }
+    .body-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: rgba(240,237,232,0.62);
+      max-width: 560px;
+    }
+    .body-text + .body-text { margin-top: 18px; }
+    .body-text strong { color: var(--white); font-weight: 500; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--gold-dim);
+      border: 1px solid rgba(200,168,75,0.22);
+      border-radius: 6px;
+      padding: 32px 36px;
+      margin: 32px 0;
+    }
+    .callout-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .callout p {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* ── BUDGET TABLE ── */
+    .budget-table { width: 100%; border-collapse: collapse; }
+    .budget-table tr { border-bottom: 1px solid var(--border); }
+    .budget-table tr:last-child { border-bottom: none; }
+    .budget-table td { padding: 20px 0; font-size: 14px; vertical-align: top; }
+    .budget-table .td-label {
+      color: rgba(240,237,232,0.55);
+      max-width: 360px;
+      line-height: 1.6;
+    }
+    .budget-table .td-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      text-align: right;
+      white-space: nowrap;
+      padding-left: 40px;
+    }
+    .budget-table tr.total td { padding-top: 28px; }
+    .budget-table tr.total .td-amount { color: var(--white); font-size: 30px; }
+    .budget-table tr.total .td-label { color: var(--white); font-weight: 600; font-size: 15px; }
+
+    /* ── BLUEPRINT ── */
+    .blueprint {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      margin-top: 48px;
+    }
+    .bp-cell {
+      background: var(--black);
+      padding: 48px 44px;
+    }
+    .bp-step {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .bp-h {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+    .bp-body {
+      font-size: 14px;
+      color: rgba(240,237,232,0.55);
+      line-height: 1.8;
+    }
+
+    /* ── DIVIDER ── */
+    .big-divider {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 48px 0;
+    }
+    .big-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .big-divider-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ── PILLS ── */
+    .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    .pill {
+      background: var(--gold-dim);
+      border: 1px solid rgba(200,168,75,0.28);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .pill .num { color: var(--gold); font-weight: 600; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 96px 52px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .cta-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .cta-h {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+    .cta-sub {
+      font-size: 15px;
+      color: rgba(240,237,232,0.55);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: #080808;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 18px 48px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover { background: #d4b355; transform: translateY(-1px); }
+    .cta-note {
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .footer-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .hero { padding: 0 24px 60px; }
+      section { padding: 60px 24px; }
+      section.tight { padding: 52px 24px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 28px 20px; }
+      .grid-2 { grid-template-columns: 1fr; gap: 40px; }
+      .blueprint { grid-template-columns: 1fr; }
+      .cta-section { padding: 72px 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 24px; }
+    }
+
+    /* ── ARTIST PITCH ── */
+    .pitch-hero {
+      padding: 96px 52px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(200,168,75,0.04) 0%, transparent 60%);
+    }
+    .pitch-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .pitch-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .pitch-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .pitch-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 0.88;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+    }
+    .pitch-name .gold { color: var(--gold); }
+    .pitch-meta-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .pitch-meta-item label {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .pitch-meta-item span {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .pitch-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .pitch-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: 1px solid rgba(200,168,75,0.25);
+      padding: 8px 16px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .pitch-link:hover { border-color: var(--gold); background: var(--gold-dim); }
+
+    /* ── AUDIO PLAYER ── */
+    .player-wrap {
+      background: var(--mid);
+      border: 1px solid rgba(200,168,75,0.18);
+      border-radius: 4px;
+      padding: 32px 36px;
+      margin-bottom: 36px;
+    }
+    .player-track-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .player-track-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .player-track-sub {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+    .player-wrap audio {
+      width: 100%;
+      height: 36px;
+      filter: invert(1) sepia(1) saturate(0.6) hue-rotate(8deg) brightness(0.9);
+    }
+    .player-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .player-tag {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(200,168,75,0.7);
+      border: 1px solid rgba(200,168,75,0.2);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── SOCIAL STATS ── */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      margin-top: 0;
+    }
+    .social-cell {
+      padding: 28px 28px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .social-cell:nth-child(3n) { border-right: none; }
+    .social-cell:nth-last-child(-n+3) { border-bottom: none; }
+    .social-cell .platform {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .social-cell .followers {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .social-cell .change {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .social-cell .change.up { color: var(--green); }
+
+    /* ── PLAYLIST HISTORY ── */
+    .playlist-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+    .playlist-table tr { border-bottom: 1px solid var(--border); }
+    .playlist-table tr:first-child { border-top: 1px solid var(--border); }
+    .playlist-table td { padding: 16px 0; font-size: 13px; vertical-align: middle; }
+    .playlist-table .td-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--white);
+      padding-right: 20px;
+    }
+    .playlist-table .td-track {
+      color: rgba(240,237,232,0.5);
+      padding-right: 20px;
+    }
+    .playlist-table .td-size {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--gold);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .playlist-table .td-badge {
+      padding-right: 16px;
+    }
+    .badge-pill {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      border: 1px solid rgba(200,168,75,0.3);
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    /* ── IDU PLACEMENTS STRIP ── */
+    .idu-placements {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .idu-placement-pill {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: rgba(240,237,232,0.6);
+    }
+    .idu-placement-pill strong {
+      display: block;
+      font-size: 13px;
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .idu-placement-pill .pp-count {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ── APPLE MUSIC ── */
+    .apple-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      margin-top: 40px;
+    }
+    .apple-cell {
+      background: var(--black);
+      padding: 40px 40px;
+    }
+    .apple-step {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .apple-h {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .apple-body {
+      font-size: 13px;
+      color: rgba(240,237,232,0.55);
+      line-height: 1.8;
+    }
+
+    /* ── DJ PACK ADDON ── */
+    .addon-section {
+      padding: 72px 52px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(200,168,75,0.03);
+    }
+    .addon-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 64px;
+      justify-content: space-between;
+    }
+    .addon-left { flex: 1; max-width: 560px; }
+    .addon-price-block {
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .addon-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .addon-price-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .addon-details {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .addon-detail-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(240,237,232,0.6);
+    }
+    .addon-detail-row::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .pitch-main { grid-template-columns: 1fr; gap: 40px; }
+      .social-grid { grid-template-columns: repeat(2, 1fr); }
+      .social-cell:nth-child(2n) { border-right: none; }
+      .social-cell:nth-child(3n) { border-right: 1px solid var(--border); }
+      .social-cell:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
+      .social-cell:nth-last-child(-n+2) { border-bottom: none; }
+      .apple-grid { grid-template-columns: 1fr; }
+      .addon-inner { flex-direction: column; gap: 32px; }
+      .addon-price-block { text-align: left; }
+      .pitch-hero { padding: 72px 24px; }
+      .addon-section { padding: 52px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://www.iduhouse.com/" target="_blank" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+      <img src="idu-house.png" alt="IDU House" style="height:112px; width:auto; mix-blend-mode:luminosity; filter:brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.9); opacity:0.9;">
+    </a>
+    <div class="nav-sub">Creators — Playlist Strategy</div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-line"></div>
+    <div class="hero-bg-line2"></div>
+    <div class="hero-ticker">
+      <span>PLAYLISTS</span><span>PLAYLISTS</span><span>PLAYLISTS</span>
+    </div>
+    <div class="hero-eyebrow">IDU House Creators — Curator Service</div>
+    <h1 class="hero-title">
+      Playlist<br>
+      <span class="gold">Strategy</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Service</label>
+        <span>Curator Pitching</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Investment</label>
+        <span>$1,000</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Curator Split</label>
+        <span>80%</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Priority</label>
+        <span>Day One</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- STAT BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">$800</div>
+      <div class="stat-label">Directly to<br>Curators</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">Day 1</div>
+      <div class="stat-label">Target Timing<br>for Placement</div>
+    </div>
+  </div>
+
+  <!-- STRATEGY -->
+  <section id="strategy">
+    <div class="sec-tag">The Strategy</div>
+    <div class="grid-2">
+      <div>
+        <h2 class="sec-title">Subgenre<br>Match Is<br>Everything</h2>
+      </div>
+      <div>
+        <p class="intro-lead">The right playlist doesn't just get you streams. <span class="gold">It tells the algorithm who you are.</span></p>
+        <p class="body-text">Spotify's recommendation engine — Radio, Autoplay, Discover Weekly — reads which playlists a song lands in and uses that signal to build a listener profile. Broad genre placements muddy that signal. Subgenre placements sharpen it.</p>
+        <p class="body-text">We pitch to the playlists that match your song most closely. Not the biggest playlists — the <strong>most relevant</strong> ones. That match massages the algorithm toward listeners who are already primed for exactly your sound.</p>
+        <div class="callout">
+          <div class="callout-label">Direct from the playbook</div>
+          <p>"The most important thing is to pitch to the subgenre playlist that matches the song closely. That will massage the Spotify algorithm for most relevant radio suggestions."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMING -->
+  <section class="tight" id="timing">
+    <div class="sec-tag">Timing</div>
+    <div class="grid-2">
+      <div>
+        <p class="body-text">The first 72 hours of a release are when Spotify's algorithm is most actively building a listener map for the track. Playlist adds that happen after the release window carry less weight.</p>
+        <p class="body-text" style="margin-top:16px;">We coordinate with curators ahead of your release date to ensure placements go live on <strong>day one</strong> — or as close to it as possible. That timing multiplies the value of every placement.</p>
+        <div class="big-divider">
+          <div class="big-divider-label">Why it matters</div>
+        </div>
+        <div class="pill-row">
+          <div class="pill">Day 1 adds = <span class="num">peak algorithm impact</span></div>
+          <div class="pill">Subgenre match = <span class="num">relevant radio</span></div>
+          <div class="pill">One sheet = <span class="num">curator confidence</span></div>
+        </div>
+        <p class="body-text">Every pitch goes out with a one sheet — artist context, track details, genre and subgenre framing. Curators make faster yes decisions when the story is clear.</p>
+      </div>
+      <div>
+        <h2 class="sec-title">Release<br>Day or<br>Bust</h2>
+        <p class="body-text">Placements that come in late can still move the needle, but they miss the first-week window where Spotify's systems are most actively learning about the track. We move on the release schedule, not around it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUDGET -->
+  <section id="budget">
+    <div class="sec-tag">Budget Breakdown</div>
+    <div class="grid-2">
+      <div>
+        <h2 class="sec-title">$1K,<br>Built Right</h2>
+        <p class="body-text">Eighty percent of every dollar goes directly to curators. That's not a talking point — it's how we structure every campaign. Our 20% covers coordination, one sheet production, pitch outreach, and follow-up. The curators get the rest.</p>
+        <p class="body-text" style="margin-top:16px;">We work with a trusted network, not a marketplace. These are curators who respond, who have real playlists with real listeners, and who we have ongoing relationships with.</p>
+      </div>
+      <div>
+        <table class="budget-table">
+          <tr>
+            <td class="td-label">Admin — coordination, one sheet production, pitch outreach &amp; follow-up</td>
+            <td class="td-amount">$200</td>
+          </tr>
+          <tr>
+            <td class="td-label">Curator campaigns — direct pitching to trusted curators in your subgenre</td>
+            <td class="td-amount">$800</td>
+          </tr>
+          <tr class="total">
+            <td class="td-label">Total Service</td>
+            <td class="td-amount">$1,000</td>
+          </tr>
+        </table>
+        <div class="callout" style="margin-top:28px;">
+          <div class="callout-label">Rate &amp; Value</div>
+          <p>Rate depends on success — especially any big playlist gets. We price at $1K because that's what gets the work done right without overpromising on outcomes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="sec-tag">The Process</div>
+    <h2 class="sec-title">How It<br>Works</h2>
+    <p class="body-text" style="max-width:600px">Five steps from submission to placement. We handle everything after you submit your track.</p>
+    <div class="blueprint">
+      <div class="bp-cell">
+        <div class="bp-step">Step 01</div>
+        <div class="bp-h">One Sheet</div>
+        <div class="bp-body">We build your one sheet — artist bio, track context, subgenre framing, release date, and any supporting social proof. This goes to every curator and is the difference between a real consideration and a skip.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 02</div>
+        <div class="bp-h">Subgenre Map</div>
+        <div class="bp-body">We identify the subgenre playlists that match your track most precisely. Not by follower count — by sound match. A 5K playlist in exactly your subgenre is worth more than a 100K catch-all.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 03</div>
+        <div class="bp-h">Curator Pitch</div>
+        <div class="bp-body">Direct outreach to our trusted curator network. These aren't cold pitches to a marketplace — these are relationships. We pitch with your one sheet and coordinate timing from the start.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 04</div>
+        <div class="bp-h">Day One Timing</div>
+        <div class="bp-body">We coordinate with confirmed curators to align adds with your release date. The goal is always day one. When that's not possible, we get as close as the curator's schedule allows.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 05</div>
+        <div class="bp-h">Algorithm Unlock</div>
+        <div class="bp-body">Subgenre placements on day one feed Spotify the strongest possible listener signal. The algorithm uses that signal to build your radio profile — putting your music in front of people most likely to stream, save, and follow.</div>
+      </div>
+      <div class="bp-cell" style="background: var(--gold-dim);">
+        <div class="bp-step">The Goal</div>
+        <div class="bp-h">Relevant Radio</div>
+        <div class="bp-body">Spotify Radio built from accurate subgenre data = listeners who actually fit your sound. That's the compounding effect. It doesn't just get you streams — it builds the right audience profile that keeps generating them.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CURRENT PITCH — LIL CHERRY              -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <!-- ARTIST + PLAYER -->
+  <div class="pitch-hero" id="pitch">
+    <div class="pitch-eyebrow">Current Pitch — Korean Hip-Hop / Nola Bounce</div>
+    <div class="pitch-main">
+
+      <div>
+        <h2 class="pitch-name">Lil<br><span class="gold">Cherry</span></h2>
+        <div class="pitch-meta-row">
+          <div class="pitch-meta-item">
+            <label>Genre</label>
+            <span>Korean Hip-Hop</span>
+          </div>
+          <div class="pitch-meta-item">
+            <label>Subgenre</label>
+            <span>Nola Bounce</span>
+          </div>
+          <div class="pitch-meta-item">
+            <label>BPM</label>
+            <span>100</span>
+          </div>
+          <div class="pitch-meta-item">
+            <label>Vocals</label>
+            <span>Lead</span>
+          </div>
+        </div>
+        <p class="body-text">Korean hip-hop artist based in Seoul. 515K TikTok, 296K Instagram, 141K Spotify followers. Prior placements include K-Pop ON! (6.1M followers) and Filtr US (1.3M). Her niche is proven — Korean hip-hop, K-pop dance, and Asian crossover playlists. This record is a Nola bounce record at 100 BPM with Lil Cherry holding down the vocals throughout.</p>
+        <div style="margin-top:24px;">
+          <div class="pitch-links">
+            <a class="pitch-link" href="https://www.instagram.com/lilcherryontop/" target="_blank">Instagram →</a>
+            <a class="pitch-link" href="https://www.allure.com/story/korean-musician-lil-cherry-beauty-makeup-interview" target="_blank">Allure Feature →</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="player-wrap">
+          <div class="player-track-label">Preview Track</div>
+          <div class="player-track-name">YUMMY88</div>
+          <div class="player-track-sub">Lil Cherry &amp; GOLDBUUDA &nbsp;·&nbsp; Nola Bounce &nbsp;·&nbsp; 100 BPM</div>
+          <audio controls preload="none">
+            <source src="yummy88.mp3" type="audio/mpeg" />
+          </audio>
+          <div class="player-tags">
+            <span class="player-tag">Nola Bounce</span>
+            <span class="player-tag">Korean Hip-Hop</span>
+            <span class="player-tag">100 BPM</span>
+            <span class="player-tag">Dance</span>
+          </div>
+        </div>
+
+        <div class="social-grid">
+          <div class="social-cell">
+            <div class="platform">TikTok</div>
+            <div class="followers">515K</div>
+            <div class="change up">+0.1%</div>
+          </div>
+          <div class="social-cell">
+            <div class="platform">Instagram</div>
+            <div class="followers">296K</div>
+            <div class="change">−0.3% (−1K)</div>
+          </div>
+          <div class="social-cell">
+            <div class="platform">Spotify</div>
+            <div class="followers">141K</div>
+            <div class="change">−0.4% (−627)</div>
+          </div>
+          <div class="social-cell">
+            <div class="platform">SoundCloud</div>
+            <div class="followers">49.8K</div>
+            <div class="change up">+0.1%</div>
+          </div>
+          <div class="social-cell">
+            <div class="platform">YouTube</div>
+            <div class="followers">9.42K</div>
+            <div class="change">−0.1%</div>
+          </div>
+          <div class="social-cell">
+            <div class="platform">X / Twitter</div>
+            <div class="followers">4.44K</div>
+            <div class="change">−0.6%</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LIL CHERRY PLAYLIST HISTORY -->
+  <section>
+    <div class="sec-tag">Artist Playlist History</div>
+    <div class="grid-2">
+      <div>
+        <h2 class="sec-title">She's Already<br>In the<br>Algorithm</h2>
+        <p class="body-text">Lil Cherry has been placed on some of Spotify's biggest genre-defining playlists — with 6M+ follower placements on K-Pop ON! alone. That existing footprint means curators already have context on who she is. The subgenre niche is proven: Korean hip-hop, K-pop dance, and Asian crossover.</p>
+        <p class="body-text" style="margin-top:16px;">For this record — a Nola bounce crossover — we build on that base while targeting new subgenre territory. The algorithm already knows where she fits. We're expanding the map.</p>
+        <div class="callout" style="margin-top:28px;">
+          <div class="callout-label">Subgenre Niche</div>
+          <p>Korean hip-hop &amp; K-pop dance are her proven lane. Nola bounce is the new subgenre signal we're layering in for YUMMY88.</p>
+        </div>
+      </div>
+      <div>
+        <table class="playlist-table">
+          <tr>
+            <td class="td-badge"><span class="badge-pill">Spotify</span></td>
+            <td class="td-name">K-Pop ON! (온)</td>
+            <td class="td-track">LOOP (feat. Lil Cherry)</td>
+            <td class="td-size">6.1M</td>
+          </tr>
+          <tr>
+            <td class="td-badge"><span class="badge-pill">Soave</span></td>
+            <td class="td-name">TikTok Music 2026 Viral</td>
+            <td class="td-track">LOOP (feat. Lil Cherry)</td>
+            <td class="td-size">1.4M</td>
+          </tr>
+          <tr>
+            <td class="td-badge"><span class="badge-pill">Filtr US</span></td>
+            <td class="td-name">Beyond Borders: Asian A–Z</td>
+            <td class="td-track">CATWALK (feat. Rico Nasty)</td>
+            <td class="td-size">1.3M</td>
+          </tr>
+          <tr>
+            <td class="td-badge"><span class="badge-pill">Filtr US</span></td>
+            <td class="td-name">Beyond Borders: Asian A–Z</td>
+            <td class="td-track">G! (feat. HYO) [Remix]</td>
+            <td class="td-size">1.3M</td>
+          </tr>
+          <tr>
+            <td class="td-badge"><span class="badge-pill">Editorial</span></td>
+            <td class="td-name">The New Seoul</td>
+            <td class="td-track">Korean Hip-Hop Now</td>
+            <td class="td-size">Target</td>
+          </tr>
+          <tr>
+            <td class="td-badge"><span class="badge-pill">Editorial</span></td>
+            <td class="td-name">Korean Hip-Hop Rewind</td>
+            <td class="td-track">Algorithm framing</td>
+            <td class="td-size">Target</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDU HOUSE PLACEMENT TRACK RECORD -->
+  <section class="tight">
+    <div class="sec-tag">IDU House Track Record — Playlist Push Campaigns</div>
+    <h2 class="sec-title">Placements<br>We've Landed</h2>
+    <p class="body-text" style="max-width:620px">A sample of confirmed Playlist Push placements across IDU House artist campaigns. Ranges from 1K to 121K follower playlists — vibes, mood, genre, and workout categories all represented.</p>
+    <div class="idu-placements">
+      <div class="idu-placement-pill"><strong>sad rap vibes 2026</strong><span class="pp-count">121,507</span> followers</div>
+      <div class="idu-placement-pill"><strong>Night Vibes 2026 — Late Night Drive</strong><span class="pp-count">50,523</span> followers</div>
+      <div class="idu-placement-pill"><strong>Workout Motivation</strong><span class="pp-count">41,342</span> followers</div>
+      <div class="idu-placement-pill"><strong>Rap Caviar but it's actually good</strong><span class="pp-count">39,358</span> followers</div>
+      <div class="idu-placement-pill"><strong>VACATION 2024 — Summer Hits</strong><span class="pp-count">34,782</span> followers</div>
+      <div class="idu-placement-pill"><strong>R's and B's</strong><span class="pp-count">33,121</span> followers</div>
+      <div class="idu-placement-pill"><strong>passionfruit vibes</strong><span class="pp-count">28,997</span> followers</div>
+      <div class="idu-placement-pill"><strong>Hype Basketball 2025</strong><span class="pp-count">28,452</span> followers</div>
+      <div class="idu-placement-pill"><strong>Bass Boosted Rap</strong><span class="pp-count">28,475</span> followers</div>
+      <div class="idu-placement-pill"><strong>HipHop 2024 — Best Rap</strong><span class="pp-count">24,968</span> followers</div>
+      <div class="idu-placement-pill"><strong>Hype Rap — Party Trap</strong><span class="pp-count">14,626</span> followers</div>
+      <div class="idu-placement-pill"><strong>fresh blood</strong><span class="pp-count">13,772</span> followers</div>
+      <div class="idu-placement-pill"><strong>late night drive</strong><span class="pp-count">13,128</span> followers</div>
+      <div class="idu-placement-pill"><strong>jungle-pop</strong><span class="pp-count">11,409</span> followers</div>
+      <div class="idu-placement-pill"><strong>Dancefloor Waves</strong><span class="pp-count">11,126</span> followers</div>
+      <div class="idu-placement-pill"><strong>HipHop Vault</strong><span class="pp-count">22,450</span> followers</div>
+      <div class="idu-placement-pill"><strong>World Stage: Rap/Alternative</strong><span class="pp-count">48,696</span> followers</div>
+      <div class="idu-placement-pill"><strong>Hip-Hop &amp; Rap for night vibes</strong><span class="pp-count">14,572</span> followers</div>
+      <div class="idu-placement-pill"><strong>feel good</strong><span class="pp-count">24,350</span> followers</div>
+      <div class="idu-placement-pill"><strong>RAP BEAST</strong><span class="pp-count">12,641</span> followers</div>
+      <div class="idu-placement-pill"><strong>Deep House — Special Moments</strong><span class="pp-count">5,721</span> followers</div>
+      <div class="idu-placement-pill"><strong>gym sad playlist</strong><span class="pp-count">37,978</span> followers</div>
+    </div>
+  </section>
+
+  <!-- APPLE MUSIC STRATEGY -->
+  <section>
+    <div class="sec-tag">Apple Music — Editorial Approach</div>
+    <div class="grid-2">
+      <div>
+        <h2 class="sec-title">Pitch<br>Through<br>the Distro</h2>
+        <p class="body-text">Apple Music no longer accepts direct email pitches. The correct path is through the distributor — getting the track onto the priority pitch sheet so Apple's editorial team sees it in their internal tool with the full context already loaded.</p>
+        <p class="body-text" style="margin-top:16px;">We dig through Lil Cherry's existing data to identify the exact playlists that fit — her proven Korean hip-hop and K-pop dance placements serve as the framing. We list specific playlists she's already landed to show the algorithm fit isn't hypothetical.</p>
+        <p class="body-text" style="margin-top:16px;">This is a <strong>one-time add</strong> strategy — we're not chasing a long-running rotation. We want the Day 1 placement signal, then let the algorithm carry it.</p>
+      </div>
+      <div>
+        <div class="apple-grid">
+          <div class="apple-cell">
+            <div class="apple-step">Step 01</div>
+            <div class="apple-h">Distro Priority Pitch</div>
+            <div class="apple-body">Work with Lil Cherry's distributor to get YUMMY88 on the Apple Music priority pitch sheet. This is the only path in — not email, not direct outreach.</div>
+          </div>
+          <div class="apple-cell">
+            <div class="apple-step">Step 02</div>
+            <div class="apple-h">Exact Playlist Match</div>
+            <div class="apple-body">We include The New Seoul, Korean Hip-Hop Now, and Korean Hip-Hop Rewind as specific targets. Showing she's already landed there frames the pitch with evidence, not hope.</div>
+          </div>
+          <div class="apple-cell">
+            <div class="apple-step">Step 03</div>
+            <div class="apple-h">Data Package</div>
+            <div class="apple-body">K-Pop ON! placement (6.1M followers), Filtr US history, TikTok velocity (515K), and the Allure feature all go in the pitch package. Curators need to say yes fast — give them the full story.</div>
+          </div>
+          <div class="apple-cell" style="background: var(--gold-dim);">
+            <div class="apple-step">Goal</div>
+            <div class="apple-h">One-Time Add</div>
+            <div class="apple-body">We're not after a permanent rotation. A single placement on the right Apple Music editorial playlist on release day gives the algorithm the signal it needs. One clean add, right on time.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DJ PACK ADD-ON -->
+  <div class="addon-section">
+    <div class="sec-tag">Optional Add-On</div>
+    <div class="addon-inner">
+      <div class="addon-left">
+        <h2 class="sec-title" style="margin-bottom:20px;">K-Pop Radio<br>DJ Pack</h2>
+        <p class="body-text">We service a DJ pack of YUMMY88 to K-Pop Radio DJs through <strong>MP3 Pool Online</strong> — a DJ pool with dedicated K-Pop and mainstream channels. A clean version of the track is required to produce the pack.</p>
+        <p class="body-text" style="margin-top:16px;">This gets the record in front of K-Pop radio DJs who are actively programming and pulling new music. A single DJ spinning it at a K-Pop night or on stream can drive plays that are completely outside the curator channel.</p>
+        <div class="addon-details">
+          <div class="addon-detail-row">Clean version of YUMMY88 required before pack production</div>
+          <div class="addon-detail-row">Serviced via mp3poolonline.com — K-Pop Mainstream channel</div>
+          <div class="addon-detail-row">Targets active K-Pop Radio DJs, not just playlist curators</div>
+          <div class="addon-detail-row">Expands reach into DJ sets, radio, and streaming broadcasts</div>
+          <div class="addon-detail-row">Can be stacked on top of the standard $1K campaign</div>
+        </div>
+      </div>
+      <div class="addon-price-block">
+        <div class="addon-price">$150</div>
+        <div class="addon-price-label">Add-On Service</div>
+        <div style="margin-top:20px;">
+          <a class="pitch-link" href="https://mp3poolonline.com/category/mainstream/k-pop" target="_blank" style="white-space:nowrap;">K-Pop DJ Pool →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-eyebrow">IDU House Creators</div>
+    <h2 class="cta-h">Ready<br>to <span style="color:var(--gold)">Get Placed?</span></h2>
+    <p class="cta-sub">Submit your track and release date. We'll handle the rest — one sheet, subgenre mapping, curator outreach, and day-one coordination.</p>
+    <a class="cta-btn" href="mailto:dell@iduhouse.com">Submit Your Track</a>
+    <p class="cta-note">$1,000 per campaign · 80% directly to curators · Day-one timing priority</p>
+    <p style="margin-top:28px; font-size:13px; color:rgba(240,237,232,0.4); max-width:440px; margin-left:auto; margin-right:auto; line-height:1.7;">This is a one-off campaign. Artists who want ongoing placement support can move to a subscription model — <a href="https://www.iduhouse.com/creator-services" target="_blank" style="color:var(--gold); text-decoration:none;">see IDU House Creator Services →</a></p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://www.iduhouse.com/" target="_blank" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+      <img src="idu-house.png" alt="IDU House" style="height:44px; width:auto; mix-blend-mode:luminosity; filter:brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.85); opacity:0.75;">
+    </a>
+    <div class="footer-note">creators.iduhouse.com/playlists</div>
+  </footer>
+
+</body>
+</html>
