@@ -744,8 +744,51 @@
       font-weight: 700;
     }
 
+    /* ── PLAYLIST LINKS GRID ── */
+    .pl-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 36px;
+      border: 1px solid var(--border);
+    }
+    .pl-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .pl-item:hover { background: rgba(200,168,75,0.06); }
+    .pl-item:nth-child(3n) { border-right: none; }
+    .pl-num {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      min-width: 18px;
+      flex-shrink: 0;
+    }
+    .pl-name {
+      font-size: 12px;
+      color: rgba(240,237,232,0.75);
+      line-height: 1.3;
+      flex: 1;
+    }
+    .pl-item:hover .pl-name { color: var(--white); }
+    .pl-arrow {
+      font-size: 10px;
+      color: rgba(200,168,75,0.4);
+      flex-shrink: 0;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .pl-item:hover .pl-arrow { color: var(--gold); transform: translateX(2px); }
     @media (max-width: 900px) {
-      .pitch-main { grid-template-columns: 1fr; gap: 40px; }
+      .pl-grid { grid-template-columns: repeat(2, 1fr); }
+      .pl-item:nth-child(3n) { border-right: 1px solid var(--border); }
+      .pl-item:nth-child(2n) { border-right: none; }
+    }
       .social-grid { grid-template-columns: repeat(2, 1fr); }
       .social-cell:nth-child(2n) { border-right: none; }
       .social-cell:nth-child(3n) { border-right: 1px solid var(--border); }
@@ -972,29 +1015,104 @@
     <div class="sec-tag">Most Recent Artist Curator Placements</div>
     <h2 class="sec-title">Placements<br>We've Landed</h2>
     <p class="body-text" style="max-width:620px">Confirmed placements from recent campaigns. With the proposed $1,000 budget, curators will have significantly bigger reach.</p>
-    <div class="idu-placements">
-      <div class="idu-placement-pill"><strong>sad rap vibes 2026</strong><span class="pp-count">121,507</span> followers</div>
-      <div class="idu-placement-pill"><strong>Night Vibes 2026 — Late Night Drive</strong><span class="pp-count">50,523</span> followers</div>
-      <div class="idu-placement-pill"><strong>Workout Motivation</strong><span class="pp-count">41,342</span> followers</div>
-      <div class="idu-placement-pill"><strong>Rap Caviar but it's actually good</strong><span class="pp-count">39,358</span> followers</div>
-      <div class="idu-placement-pill"><strong>VACATION 2024 — Summer Hits</strong><span class="pp-count">34,782</span> followers</div>
-      <div class="idu-placement-pill"><strong>R's and B's</strong><span class="pp-count">33,121</span> followers</div>
-      <div class="idu-placement-pill"><strong>passionfruit vibes</strong><span class="pp-count">28,997</span> followers</div>
-      <div class="idu-placement-pill"><strong>Hype Basketball 2025</strong><span class="pp-count">28,452</span> followers</div>
-      <div class="idu-placement-pill"><strong>Bass Boosted Rap</strong><span class="pp-count">28,475</span> followers</div>
-      <div class="idu-placement-pill"><strong>HipHop 2024 — Best Rap</strong><span class="pp-count">24,968</span> followers</div>
-      <div class="idu-placement-pill"><strong>Hype Rap — Party Trap</strong><span class="pp-count">14,626</span> followers</div>
-      <div class="idu-placement-pill"><strong>fresh blood</strong><span class="pp-count">13,772</span> followers</div>
-      <div class="idu-placement-pill"><strong>late night drive</strong><span class="pp-count">13,128</span> followers</div>
-      <div class="idu-placement-pill"><strong>jungle-pop</strong><span class="pp-count">11,409</span> followers</div>
-      <div class="idu-placement-pill"><strong>Dancefloor Waves</strong><span class="pp-count">11,126</span> followers</div>
-      <div class="idu-placement-pill"><strong>HipHop Vault</strong><span class="pp-count">22,450</span> followers</div>
-      <div class="idu-placement-pill"><strong>World Stage: Rap/Alternative</strong><span class="pp-count">48,696</span> followers</div>
-      <div class="idu-placement-pill"><strong>Hip-Hop &amp; Rap for night vibes</strong><span class="pp-count">14,572</span> followers</div>
-      <div class="idu-placement-pill"><strong>feel good</strong><span class="pp-count">24,350</span> followers</div>
-      <div class="idu-placement-pill"><strong>RAP BEAST</strong><span class="pp-count">12,641</span> followers</div>
-      <div class="idu-placement-pill"><strong>Deep House — Special Moments</strong><span class="pp-count">5,721</span> followers</div>
-      <div class="idu-placement-pill"><strong>gym sad playlist</strong><span class="pp-count">37,978</span> followers</div>
+    <div class="pl-grid">
+      <a class="pl-item" href="https://open.spotify.com/playlist/08fTXMJsQ5ALsYjgBmos9N" target="_blank"><span class="pl-num">01</span><span class="pl-name">Sleep Rap 💤</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/36jMjt77enSYMSr4uoYe9J" target="_blank"><span class="pl-num">02</span><span class="pl-name">Rap Caviar but it's actually good</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2DxMxoeQC7IJ5b8oizw7q7" target="_blank"><span class="pl-num">03</span><span class="pl-name">PRE GAME HYPE 🔥</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6LyeLzsr3boY2XOa7BqdH4" target="_blank"><span class="pl-num">04</span><span class="pl-name">Hip-Hop Drive</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3eb9Wj2V1Cvep2lKrqj8pz" target="_blank"><span class="pl-num">05</span><span class="pl-name">Like A Boss</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/08Deh7TDpIav6a9MinINnC" target="_blank"><span class="pl-num">06</span><span class="pl-name">Gym Beatz</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/0IasuwoDGQsXJN9jxAgFoc" target="_blank"><span class="pl-num">07</span><span class="pl-name">Smoke And Bless 2026</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2gyoHEGNg806x6HJG2b17r" target="_blank"><span class="pl-num">08</span><span class="pl-name">RAP BANGERS / FRAT PARTY 🔥</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2DxMxoeQC7IJ5b8oizw7q7" target="_blank"><span class="pl-num">09</span><span class="pl-name">Money Making Hustle Songs</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3i47D9xIUamcm3ZkOIWwkr" target="_blank"><span class="pl-num">10</span><span class="pl-name">Chill House ✨</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/22DMRzpopYGBk32nfgfZow" target="_blank"><span class="pl-num">11</span><span class="pl-name">R&amp;B Radio</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2ThnAsPDvIrdXGaDdukc1x" target="_blank"><span class="pl-num">12</span><span class="pl-name">Luxury Rap Vibe</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5SUlpfIW9DCb1YOusT3x5U" target="_blank"><span class="pl-num">13</span><span class="pl-name">TURN IT UP</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/1sk2EPn5bvNnK17bYpV4qh" target="_blank"><span class="pl-num">14</span><span class="pl-name">Smoking Vibes</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/45bjgAEZhSf6mFYpgaRL37" target="_blank"><span class="pl-num">15</span><span class="pl-name">Chill Vibes / Soft Pop and R&amp;B 🧊</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/1hulnOzWQ3lwK4YowkcBVJ" target="_blank"><span class="pl-num">16</span><span class="pl-name">饒舌派對！</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2ZzHAJOd8OLgDHbRHI52AV" target="_blank"><span class="pl-num">17</span><span class="pl-name">Rap Workout</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3cNekxJBHc84F1OwhGL3IS" target="_blank"><span class="pl-num">18</span><span class="pl-name">Wake and Bake Chill Out 🌿</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/17cHE8zgJDocb1noiIc2te" target="_blank"><span class="pl-num">19</span><span class="pl-name">BLACK MUSIC.</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6at4j7h8qM06Tu2E5MDPLH" target="_blank"><span class="pl-num">20</span><span class="pl-name">Good Vibes 2025 🌈</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4EgX54V82mvns0SaIWaeeR" target="_blank"><span class="pl-num">21</span><span class="pl-name">Intense Workout, Gym Rat Trap</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6pLr9tgPbUclhqhQEEJLuc" target="_blank"><span class="pl-num">22</span><span class="pl-name">Toy volao</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6faamEEJKTjlALnUGBbrCb" target="_blank"><span class="pl-num">23</span><span class="pl-name">W's Only / Gaming Playlist / 2025</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3KSiTnoDqGCUBdbrfPRxLV" target="_blank"><span class="pl-num">24</span><span class="pl-name">Morning Routine</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3cyd59A7zkVuDfZSqAeNzv" target="_blank"><span class="pl-num">25</span><span class="pl-name">hip hop that hits harder than oppenheimer's bomb</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3W3GiszqiAQG2uG9YXDzoz" target="_blank"><span class="pl-num">26</span><span class="pl-name">Beast Mode Beats</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/04JMoNl29vGUNvdFAykXZO" target="_blank"><span class="pl-num">27</span><span class="pl-name">Circuit &amp; Guaracha</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4aWFFVRMiQzZ4lNMJFuGIM" target="_blank"><span class="pl-num">28</span><span class="pl-name">Cosmopolitan Pulse</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6bmQQl7On2sW7PLCoKBz59" target="_blank"><span class="pl-num">29</span><span class="pl-name">西洋R&amp;B</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/615EEna8e6ftBWkdE370zF" target="_blank"><span class="pl-num">30</span><span class="pl-name">DRIFTING</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5qtpfuVbEXRGBbmhKlh32x" target="_blank"><span class="pl-num">31</span><span class="pl-name">soka jamz*</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/7AswPnRfhtzGP88pALwLEn" target="_blank"><span class="pl-num">32</span><span class="pl-name">DJSOUNG 把妹歌單</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4n7S7hJi0y24vLLdl3ZK6D" target="_blank"><span class="pl-num">33</span><span class="pl-name">只要錢到位 什麼姿勢我都會</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/501gl6FLqgMf7iLIZ0X6B5" target="_blank"><span class="pl-num">34</span><span class="pl-name">Gym Rap Motivation</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6bltmFjhWsMu2NGSBaBuAT" target="_blank"><span class="pl-num">35</span><span class="pl-name">fajno</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4bFAvYBRjZbXYNKzjHFewI" target="_blank"><span class="pl-num">36</span><span class="pl-name">Party Rap 🎉</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6LR8PAccFCgigIyLXQGMtv" target="_blank"><span class="pl-num">37</span><span class="pl-name">Trending HipHop</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5BAZS6B2iUTy1Z1S4MxgS0" target="_blank"><span class="pl-num">38</span><span class="pl-name">Japones</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6R8dkwVMqUUd0A8a9Vt9xC" target="_blank"><span class="pl-num">39</span><span class="pl-name">RBV</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2Dbd4cVXDW2jdK3CdE0tts" target="_blank"><span class="pl-num">40</span><span class="pl-name">Rääp</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5YTv9oFbIHdp9nEcyq2I5J" target="_blank"><span class="pl-num">41</span><span class="pl-name">BEST SPANISH/LATINO PLAYLIST 🕺🏽</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/01zdMwCj3O5OR3lMeeh8ZN" target="_blank"><span class="pl-num">42</span><span class="pl-name">dope sick</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2tbcD5tBuNZlcfrqnsilgr" target="_blank"><span class="pl-num">43</span><span class="pl-name">HAPPY SUNDAY MUSIC</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3C0eMBIOyVrrTxQ6sRLz9o" target="_blank"><span class="pl-num">44</span><span class="pl-name">Dance Rising</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6McIqqcsgvUUG5sHzXMRpk" target="_blank"><span class="pl-num">45</span><span class="pl-name">Smooth Sleeping Amapiano &amp; Afro Beats</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2rLmvR2G4zjUIjMIIjaFKA" target="_blank"><span class="pl-num">46</span><span class="pl-name">Trotter2</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3I34ZNvr2K1W0aaODIVEdu" target="_blank"><span class="pl-num">47</span><span class="pl-name">type shit</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/26cdDz5b1W5OcG0OAQ9pTL" target="_blank"><span class="pl-num">48</span><span class="pl-name">💪</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6re7kMNB1kJiAOBvCwve5Q" target="_blank"><span class="pl-num">49</span><span class="pl-name">Dark Vibes ✨</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2LrRXs6Gsb294WhkxYaTc6" target="_blank"><span class="pl-num">50</span><span class="pl-name">Sh7nWrldoo💖🌏</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2r0MDK7eQU2JGHUobtog7H" target="_blank"><span class="pl-num">51</span><span class="pl-name">God Save the Chill - Finesse</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/11V5OszQgFFVWVSD2QliBl" target="_blank"><span class="pl-num">52</span><span class="pl-name">Aux 🔌🥷</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3AoNQ7Js1IUMVEpChnxTyA" target="_blank"><span class="pl-num">53</span><span class="pl-name">Orange 🦁</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6cOBE35wzzsC4tb46BR7Dp" target="_blank"><span class="pl-num">54</span><span class="pl-name">🌅Riviera Maya🏝️</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6hwwmPlYE6i3VopO5sIbFP" target="_blank"><span class="pl-num">55</span><span class="pl-name">Night driver 🔥🏁</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/1mQfV5JYkNzZ1HJYGi0S8s" target="_blank"><span class="pl-num">56</span><span class="pl-name">Vibes</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4w8tOQBYBHPsqjfIVeyqQA" target="_blank"><span class="pl-num">57</span><span class="pl-name">Lock in 🔒</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5t08rFPJddY6RyW9oIKURy" target="_blank"><span class="pl-num">58</span><span class="pl-name">Chill ilis niiza Ⅵ</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3onawGo78kI361ysPF8Amt" target="_blank"><span class="pl-num">59</span><span class="pl-name">🔥🔥🔥</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/7gJDqBIqAEHILxZBOdIDsl" target="_blank"><span class="pl-num">60</span><span class="pl-name">Rap Workout 🔱</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3HXfdtXZ8wlKnsE7cJqULC" target="_blank"><span class="pl-num">61</span><span class="pl-name">life is rage</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4qqFCT5MT4GHwuVcHGfdpd" target="_blank"><span class="pl-num">62</span><span class="pl-name">Jpark</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5BgFiBmN2TLLAtNzxMOBEA" target="_blank"><span class="pl-num">63</span><span class="pl-name">Chill</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/1OLPdz6ScFR5eOGetaJMSk" target="_blank"><span class="pl-num">64</span><span class="pl-name">ㄍㄜ</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/1vu4qw8WgRXE3PRuGVuHKT" target="_blank"><span class="pl-num">65</span><span class="pl-name">Good Ass Rap Music™️</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/7HGDxSAfQqVZQmuvPwgF1W" target="_blank"><span class="pl-num">66</span><span class="pl-name">25 / 1</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/0iIyaKJFTLUXEmVNGbRAAI" target="_blank"><span class="pl-num">67</span><span class="pl-name">민수가 자고 있을 때 쇼핑카드에 태워서</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/0xRTUhchaOArSR06SJ98d2" target="_blank"><span class="pl-num">68</span><span class="pl-name">Best African Dance Songs 2023+</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6IR4gostUMA8Y17wzvCRCY" target="_blank"><span class="pl-num">69</span><span class="pl-name">STAYHOME Flavor 播放清單</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2WTXJBvdOADMjizxSCS8Ll" target="_blank"><span class="pl-num">70</span><span class="pl-name">Hip Hop Hits</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/0hZG28BB1JWfDALYE49sQP" target="_blank"><span class="pl-num">71</span><span class="pl-name">[ReCraft] Sunday Funday</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/12hOfj9Zei3ljU6S8SQiPb" target="_blank"><span class="pl-num">72</span><span class="pl-name">Every day mood</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4AUmoisGMHBhuZMcR4URIO" target="_blank"><span class="pl-num">73</span><span class="pl-name">Rappie</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5kP7v5GaI5cJOQmptok0r6" target="_blank"><span class="pl-num">74</span><span class="pl-name">Drip drop beats</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5rKvXsCyE7bZpqPvxEtb4Z" target="_blank"><span class="pl-num">75</span><span class="pl-name">Best Rap Unleashed</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6GiXsIziVWfESuHhrW94hh" target="_blank"><span class="pl-num">76</span><span class="pl-name">The germs</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/16z7wh3gg9YZY7pxLBYYk8" target="_blank"><span class="pl-num">77</span><span class="pl-name">Party list 🍻</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/2YCPSY5IJrwSND8qc2Wbwm" target="_blank"><span class="pl-num">78</span><span class="pl-name">Playlist for Hoolia</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4yO11wjv5eEk1bwkF9e5KY" target="_blank"><span class="pl-num">79</span><span class="pl-name">Remnant Brewing Trivia</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/0qE12OucVQmOrMR8PcMbrF" target="_blank"><span class="pl-num">80</span><span class="pl-name">Slys</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3FMCPHqrieKuh0zJermsHt" target="_blank"><span class="pl-num">81</span><span class="pl-name">ray ray 💯</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3c2T4jBzCA2284zUfA0itU" target="_blank"><span class="pl-num">82</span><span class="pl-name">Caffeine Sessions DJ Set</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6BiIyKAx3FchqXMO5j2HyA" target="_blank"><span class="pl-num">83</span><span class="pl-name">😩😩😩🦧🧑</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/3U2Rl8grIsrecCHaYnx7Vk" target="_blank"><span class="pl-num">84</span><span class="pl-name">👾</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4CrDsbIQCONzoJ6P52yUAG" target="_blank"><span class="pl-num">85</span><span class="pl-name">夜間限定</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/01jksVQynS0O3G5VszHp6R" target="_blank"><span class="pl-num">86</span><span class="pl-name">Afro Mode ✊</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/0geNbZ8wq206god5G7p3Bu" target="_blank"><span class="pl-num">87</span><span class="pl-name">nigga's on the track.</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/1wZEoXWwiStEsvdY28VbOH" target="_blank"><span class="pl-num">88</span><span class="pl-name">P3p8t9</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/25EqcYqGqO2MPWcX8u0YeG" target="_blank"><span class="pl-num">89</span><span class="pl-name">My personal 😍</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/494OzAcbTtQYfoVqGpNNd3" target="_blank"><span class="pl-num">90</span><span class="pl-name">Chill Vibes / Soft Pop and R&amp;B 🧊</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4O1AMGDIN4UFxG67a8tiDC" target="_blank"><span class="pl-num">91</span><span class="pl-name">Japangoodshiit</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/4aCP32lEywB04Ps6HphORR" target="_blank"><span class="pl-num">92</span><span class="pl-name">Lickwid Rap</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5VKX54Gb0Cp3g9goSWobgV" target="_blank"><span class="pl-num">93</span><span class="pl-name">Cuban Vibes English</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/0z8p6HbyQesLU18dvxKtKO" target="_blank"><span class="pl-num">94</span><span class="pl-name">:)</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/6bbRJOEFtbwR9jf1RIKqij" target="_blank"><span class="pl-num">95</span><span class="pl-name">Chickita Global Playlist</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/1i4eLd7zd9kkIAZRt5FaKG" target="_blank"><span class="pl-num">96</span><span class="pl-name">Sleep Rap 💤</span><span class="pl-arrow">→</span></a>
+      <a class="pl-item" href="https://open.spotify.com/playlist/5v7xgi4XXs7awjfskL4Dcx" target="_blank"><span class="pl-num">97</span><span class="pl-name">Biking</span><span class="pl-arrow">→</span></a>
     </div>
   </section>
 
